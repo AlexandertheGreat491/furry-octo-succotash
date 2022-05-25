@@ -20,6 +20,7 @@ label {
 #search-button {
     background-color: #993366;
     color:#ffffff;
+    border-radius: 5px;
 }
 
 #clear {
