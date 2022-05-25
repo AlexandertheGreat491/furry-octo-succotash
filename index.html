@@ -24,9 +24,23 @@
     <main class="flex-row">
         <div id="page-content" class="container">
             <div class="row">
-                <form>
-                    
-                </form>
+                <!--Content on left side of the page-->
+                <div id="content-left" class="col-md-3">
+                    <form>
+                        <label for="search">Search for a City:</label>
+                        <div class="form-row">
+                            <input id="search" class="form-control" name="city" type="text">
+                            <button id="search-button" class="btn btn-primary" type="submit">Search</button>
+                        </div>
+                    </form>
+                    <div id="search-error"></div>
+                    <!--List of cities that have been previously searched-->
+                    <ul id="results" class="list-group mt-4"></ul>
+                    <!--clear storage button-->
+                    <a id="clear-storage" href="#"></a>
+                </div>
+                <!--Content on right side of the page-->
+                
             </div>
         </div>
 

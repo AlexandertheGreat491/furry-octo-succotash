@@ -12,12 +12,12 @@ h1 {
     font-size: 30px;
 }
 
-h5 {
+label {
     font-weight: 700;
     font-size: 20px;
 }
 
-#search {
+#search-button {
     background-color: #993366;
     color:#ffffff;
 }
