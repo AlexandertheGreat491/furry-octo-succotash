@@ -1,3 +1,13 @@
 body {
     font-family: 'Open Sans', sans-serif;
 }
+
+header {
+    background-color: #0066ff;
+    color: #ffffff;
+}
+
+h1 {
+    font-weight: 700;
+    font-size: 30px;
+}
