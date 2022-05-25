@@ -1,29 +1,62 @@
+/* Body styling*/
 body {
     font-family: 'Open Sans', sans-serif;
 }
 
+/*Header styling*/
 header {
+    background-size: cover;
+    position: relative;
     background-color: #0066ff;
     color: #ffffff;
 }
 
 h1 {
     font-weight: 700;
-    font-size: 30px;
+    font-size: 40px;
+}
+
+input{
+    width: 80%;
 }
 
 label {
     font-weight: 700;
-    font-size: 20px;
+    font-size: 30px;
 }
 
 #search-button {
     background-color: #993366;
     color:#ffffff;
     border-radius: 5px;
+    
 }
 
 #clear {
     background-color: #008000;
     color: #ffffff;
+    text-decoration: none;
+    font-size: 12px;
+}
+
+#today-weather {
+    padding-left: 15px;
+}
+
+.uv-favorable {
+    background-color: green;
+    border-radius: 5px;
+    color: white;
+}
+
+.uv-moderate {
+    background-color: orange;
+    border-radius: 5px;
+    color: white;
+}
+
+.uv-severe {
+    background-color: red;
+    border-radius: 5px;
+    color: white;
 }

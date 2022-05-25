@@ -19,7 +19,7 @@
 
 <body class="flex-column min-100-vh">
     <header class="container-fluid text-center p-2">
-        <h1>Weather Dashboard</h1>
+        <h1 class="text-center">Weather Dashboard</h1>
     </header>
     <main class="flex-row">
         <div id="page-content" class="container">
@@ -29,15 +29,15 @@
                     <form>
                         <label for="search">Search for a City:</label>
                         <div class="form-row">
-                            <input id="search" class="form-control" name="city" type="text">
-                            <button id="search-button" class="btn btn-primary" type="submit">Search</button>
+                            <input id="search" class="form-control mb-1" name="city" type="text">
+                            <button id="search-button" class="btn btn-primary btn-lg" type="submit" value="Submit">Search</button>
                         </div>
                     </form>
                     <div id="search-error"></div>
                     <!--List of cities that have been previously searched-->
                     <ul id="results" class="list-group mt-4"></ul>
                     <!--clear storage button-->
-                    <a id="clear-storage" href="#"></a>
+                    <button id="clear" class="btn btn-primary btn-lg" type="reset" value="Reset">Clear History</button>
                 </div>
                 <!--Content on right side of the page-->
                 <div id="page-right" class="col-md-9 pt-4">
