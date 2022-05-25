@@ -24,18 +24,28 @@
     <main class="flex-row justify-content-space-between">
         <div class="container-fluid">
             <div class="row">
-<div class="mt-1">
-    <h5 class="mt-1">Seach for a City:</h5>
-</div>
-<div class="input-group mb-3">
-    <input id="city" type="text" class="form-control" placeholder="Enter a city here" aria-label="Enter a city">
-    <div class="input-group-append">
-        <button class="btn btn-primary" type="button" id="search">Search</button> 
+                <div class="col-lg-3 bg-light">
+                    <h5 class="mt-1">Seach for a City:</h5>
+                </div>
+                <div class="input-group mb-3">
+                    <input id="city" type="text" class="form-control" placeholder="Enter a city here"
+                        aria-label="Enter a city">
+                    <div class="input-group-append">
+                        <button class="btn btn-primary" type="button" id="search">Search</button>
+                    </div>
+                </div>
+                <button class="btn btn-primary mb-3" type="button" id="clear">Clear History</button>
+                <form id="history"></form>
+            </div>
+<div class="col-lg-9">
+    <div class="row">
+        <div class="col-lg-11 card m-3 d-none" id="current-weather">
+            <div class="card body">
+                
+            </div>
+        </div>
     </div>
 </div>
-<button class="btn btn-primary mb-3" type="button" id="clear">Clear History</button>
-<form id="history"></form>
-            </div>
         </div>
 
 
