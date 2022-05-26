@@ -13,7 +13,9 @@
     <!--Google Font stylesheet-->
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
     <!--Open Iconic stylesheet-->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/open-iconic/1.1.1/font/css/open-iconic.min.css" integrity="sha512-LeCmts7kEi09nKc+DwGJqDV+dNQi/W8/qb0oUSsBLzTYiBwxj0KBlAow2//jV7jwEHwSCPShRN2+IWwWcn1x7Q==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/open-iconic/1.1.1/font/css/open-iconic.min.css"
+        integrity="sha512-LeCmts7kEi09nKc+DwGJqDV+dNQi/W8/qb0oUSsBLzTYiBwxj0KBlAow2//jV7jwEHwSCPShRN2+IWwWcn1x7Q=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!--Customized stylesheet-->
     <link rel="stylesheet" href="style.css">
     <title>Weather Dashboard</title>
@@ -24,29 +26,49 @@
         <h1 class="text-center">Weather Dashboard</h1>
     </header>
     <main class="flex-row">
-            <div class="row">
-                <div class="col-lg-3 bg-light">
-                    <form>
-                        <label for="search">Search for a City:</label>
-                        <div class="form-row">
-                            <!--User searches for a city-->
-                            <input id="search" class="form-control mb-1" name="city" type="text">
-                            <!--Search button-->
-                            <button id="search-button" class="btn btn-primary btn-lg" type="submit" value="Submit">Search</button>
-                        </div>
-                    </form>
-                    <!--clear history button-->
-                    <button id="clear" class="btn btn-primary btn-lg" type="reset" value="Reset">Clear History</button>
-                    <form id="history"></form>
-                </div>
-                <div class="col-lg-9">
-                    <div class="row mr-0">
+        <div class="row">
+            <div class="col-lg-3 bg-light">
+                <form>
+                    <label for="search">Search for a City:</label>
+                    <div class="form-row">
+                        <!--User searches for a city-->
+                        <input id="search" class="form-control mb-1" name="city" type="text">
+                        <!--Search button-->
+                        <button id="search-button" class="btn btn-primary btn-lg" type="submit"
+                            value="Submit">Search</button>
+                    </div>
+                </form>
+                <!--clear history button-->
+                <button id="clear" class="btn btn-primary btn-lg" type="reset" value="Reset">Clear History</button>
+                <form id="history"></form>
+            </div>
+            <div class="col-lg-9">
+                <div class="row mr-0">
                     <div class="col-lg-11 card m-3 d-none" id="todaysweather">
                         <div class="card-body">
                             <h3 id="city-name" class="city-name align-middle"></h3>
-                            
+                            <img id="pic" alt="">
+                            <p id="temperature"></p>
+                            <p id="humidity"></p>
+                            <p id="wind-speed"></p>
+                            <p id="UV-index"></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row d-none" id="header">
+                    <div class="col-12">
+                        <h3>5-Day Forecast</h3>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2 forecast bg-primary text-white m-2 rounded"></div>
+                    <div class="col-md-2 forecast bg-primary text-white m-2 rounded"></div>
+                    <div class="col-md-2 forecast bg-primary text-white m-2 rounded"></div>
+                    <div class="col-md-2 forecast bg-primary text-white m-2 rounded"></div>
+                    <div class="col-md-2 forecast bg-primary text-white m-2 rounded"></div>
                 </div>
             </div>
+        </div>
         </div>
 
     </main>
@@ -59,6 +81,7 @@
         integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
         crossorigin="anonymous"></script>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="main.js"></script>
 </body>
 
