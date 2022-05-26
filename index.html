@@ -24,10 +24,8 @@
         <h1 class="text-center">Weather Dashboard</h1>
     </header>
     <main class="flex-row">
-        <div id="page-content" class="container">
             <div class="row">
-                <!--Content on left side of the page-->
-                <div id="page-right" class="col-md-3">
+                <div class="col-lg-3 bg-light">
                     <form>
                         <label for="search">Search for a City:</label>
                         <div class="form-row">
@@ -37,18 +35,16 @@
                             <button id="search-button" class="btn btn-primary btn-lg" type="submit" value="Submit">Search</button>
                         </div>
                     </form>
-                    <div id="search-error"></div>
-                    <!--List of cities that have been previously searched-->
-                    <ul id="results" class="list-group mt-4"></ul>
                     <!--clear history button-->
                     <button id="clear" class="btn btn-primary btn-lg" type="reset" value="Reset">Clear History</button>
+                    <form id="history"></form>
                 </div>
-                <!--Content on right side of the page-->
-                <div id="page-right" class="col-md-9 pt-4">
-                    <!--Current weather-->
-                    <div id="today-weather" class="border border-rounded border-dark"></div>
-                    <!--Five day forecast-->
-                    <div id="five" class="mt-5"></div>
+                <div class="col-lg-9">
+                    <div class="row mr-0">
+                    <div class="col-lg-11 card m-3 d-none" id="todaysweather">
+                        <div class="card-body">
+                            <h3 id="city-name" class="city-name align-middle"></h3>
+                            
                 </div>
             </div>
         </div>
