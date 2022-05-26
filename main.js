@@ -218,6 +218,17 @@ var renderCities = function() {
             cityEl = `<button type="button" class="list-group-item list-group-item-action">${city}</button></li>`;
         }
         // City is appended to the page.
-        
+        $('#city-results').prepend(cityEl);
+        //.prepend() is a jQuery method that inserts content that is specified bythe cityEl parameter.
+
     }
+
 }
+
+// Search button event listener
+
+$('#search-button').on("click", function (event) {
+    event.preventDefault();
+    
+
+});
