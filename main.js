@@ -229,6 +229,13 @@ var renderCities = function() {
 
 $('#search-button').on("click", function (event) {
     event.preventDefault();
-    
+    currentCity = $('#search').val();
+    currentConditions(event);
+
+});
+
+// Old search cities buttons even listener.
+
+$('#city-results').on("click", function(event){
 
 });
