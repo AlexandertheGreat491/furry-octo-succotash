@@ -122,7 +122,7 @@ var currentConditions = function (event) {
 
 // This function gets the five day forecast and displays it in the HTML.
 
-var getFiveDayForecast = function(event) {
+var getFiveDayForecast = function (event) {
     let city = $('#search').val();
 
     // Sets URL for API search using forecast search
@@ -132,25 +132,25 @@ var getFiveDayForecast = function(event) {
     // Fetch
 
     fetch(queryURL).then(errors)
-    .then(function(response){
-        return response.json;
-})
-.then(function(response){
-    // HTML
-    let fiveDayForecastHTML = `
+        .then(function (response) {
+            return response.json;
+        })
+        .then(function (response) {
+            // HTML
+            let fiveDayForecastHTML = `
     <h2>5-Day Forecast:<h2>
 <div id="fiveDayForecastUl" class="d-inline-flex flex-wrap">`;
-// 5 day forecast loop and build the HTML using UTC and Open Weather Map icon.
-for (let i = 0; i < response.list.length; i++) {
-    let dayData = response.list[i];
-    let dayTImeUTC = dayData.dt;
-    let timeZoneOffset = response.city.timezone;
-    let timeZoneOffsetHours = timeZoneOffset / 60 / 60;
-    let thisMoment = moment.unix(dayTImeUTC).utc().utcOffset(timeZoneOffsetHours);
-    let iconURL = "https://openweathermap.org/img/w/" + dayData.weather[0].icon + ".png";
-    // Mid-day forecasts
-    if (thisMoment.format("HH:mm:ss") === "11:00:00" || thisMoment.format("HH:mm:ss") === "12:00:00" || thisMoment.format("HH:mm:ss") === "13:00:00"){
-        fiveDayForecastHTML += `
+            // 5 day forecast loop and build the HTML using UTC and Open Weather Map icon.
+            for (let i = 0; i < response.list.length; i++) {
+                let dayData = response.list[i];
+                let dayTImeUTC = dayData.dt;
+                let timeZoneOffset = response.city.timezone;
+                let timeZoneOffsetHours = timeZoneOffset / 60 / 60;
+                let thisMoment = moment.unix(dayTImeUTC).utc().utcOffset(timeZoneOffsetHours);
+                let iconURL = "https://openweathermap.org/img/w/" + dayData.weather[0].icon + ".png";
+                // Mid-day forecasts
+                if (thisMoment.format("HH:mm:ss") === "11:00:00" || thisMoment.format("HH:mm:ss") === "12:00:00" || thisMoment.format("HH:mm:ss") === "13:00:00") {
+                    fiveDayForecastHTML += `
         <div class="weather-card card m-2 p0">
         <ul class="list-group-flush">
         <li class="list-group-item">${thisMoment.format("MM/DD/YY")}</li>
@@ -160,8 +160,9 @@ for (let i = 0; i < response.list.length; i++) {
         <li class="list-group-item">Humidity: ${dayData.main.humidity}%</li>
         </ul>
         </div>`;
-    }
-}
+                }
 
-})
+            }
+
+        })
 }
