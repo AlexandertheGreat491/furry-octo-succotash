@@ -20,239 +20,147 @@ THEN I am presented with current and future conditions for that city and that ci
  THEN I am again presented with current and future conditions for that city*/
 
 // Global variables & Open Weather API Key
-
 var myAPIKey = "f6f9ed95a93815a052a050b551b895ef";
-// personal API for Open Weather
-var currentCity = "";
-var lastCity = "";
+function initPage() {
+    const cityEl = document.getElementById("enter-city");
+    const searchEl = document.getElementById("search-button");
+    const clearEl = document.getElementById("clear-history");
+    const nameEl = document.getElementById("city-name");
+    const currentPicEl = document.getElementById("current-pic");
+    const currentTempEl = document.getElementById("temperature");
+    const currentHumidityEl = document.getElementById("humidity");
+    const currentWindEl = document.getElementById("wind-speed");
+    const currentUVEl = document.getElementById("UV-index");
+    const historyEl = document.getElementById("history");
+    var fivedayEl = document.getElementById("fiveday-header");
+    var todayweatherEl = document.getElementById("today-weather");
+    let searchHistory = JSON.parse(localStorage.getItem("search")) || [];
 
-// Error handler
-var errors = function handleErrors(response) {
-    // successful request
-    if (!response.ok) {
-        throw Error(response.statusText);
-    }
-    return response;
-}
-/*TJ Van Toll. (2015, September 13). Handling Failed HTTP Responses With fetch(). TJ VanToll. 
-Retrieved May 26, 2022, from https://www.tjvantoll.com/2015/09/13/fetch-and-errors/ */
+    // Assigning a unique API to a variable
+    const APIKey = "84b79da5e5d7c92085660485702f4ce8";
 
-var currentConditions = function (event) {
+    function getWeather(cityName) {
+        // Execute a current weather get request from open weather api
+        let queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&appid=" + APIKey;
+        axios.get(queryURL)
+            .then(function (response) {
 
-    // User enters a city in the search input field.
+                todayweatherEl.classList.remove("d-none");
 
-    let city = $('#search').val();
-    currentCity = $('#search').val();
+                // Parse response to display current weather
+                const currentDate = new Date(response.data.dt * 1000);
+                const day = currentDate.getDate();
+                const month = currentDate.getMonth() + 1;
+                const year = currentDate.getFullYear();
+                nameEl.innerHTML = response.data.name + " (" + month + "/" + day + "/" + year + ") ";
+                let weatherPic = response.data.weather[0].icon;
+                currentPicEl.setAttribute("src", "https://openweathermap.org/img/wn/" + weatherPic + "@2x.png");
+                currentPicEl.setAttribute("alt", response.data.weather[0].description);
+                currentTempEl.innerHTML = "Temperature: " + k2f(response.data.main.temp) + " &#176F";
+                currentHumidityEl.innerHTML = "Humidity: " + response.data.main.humidity + "%";
+                currentWindEl.innerHTML = "Wind Speed: " + response.data.wind.speed + " MPH";
+                
+                // Get UV Index
+                let lat = response.data.coord.lat;
+                let lon = response.data.coord.lon;
+                let UVQueryURL = "https://api.openweathermap.org/data/2.5/uvi/forecast?lat=" + lat + "&lon=" + lon + "&appid=" + APIKey + "&cnt=1";
+                axios.get(UVQueryURL)
+                    .then(function (response) {
+                        let UVIndex = document.createElement("span");
+                        
+                        // When UV Index is good, shows green, when ok shows yellow, when bad shows red
+                        if (response.data[0].value < 4 ) {
+                            UVIndex.setAttribute("class", "badge badge-success");
+                        }
+                        else if (response.data[0].value < 8) {
+                            UVIndex.setAttribute("class", "badge badge-warning");
+                        }
+                        else {
+                            UVIndex.setAttribute("class", "badge badge-danger");
+                        }
+                        console.log(response.data[0].value)
+                        UVIndex.innerHTML = response.data[0].value;
+                        currentUVEl.innerHTML = "UV Index: ";
+                        currentUVEl.append(UVIndex);
+                    });
+                
+                // Get 5 day forecast for this city
+                let cityID = response.data.id;
+                let forecastQueryURL = "https://api.openweathermap.org/data/2.5/forecast?id=" + cityID + "&appid=" + APIKey;
+                axios.get(forecastQueryURL)
+                    .then(function (response) {
+                        fivedayEl.classList.remove("d-none");
+                        
+                        //  Parse response to display forecast for next 5 days
+                        const forecastEls = document.querySelectorAll(".forecast");
+                        for (i = 0; i < forecastEls.length; i++) {
+                            forecastEls[i].innerHTML = "";
+                            const forecastIndex = i * 8 + 4;
+                            const forecastDate = new Date(response.data.list[forecastIndex].dt * 1000);
+                            const forecastDay = forecastDate.getDate();
+                            const forecastMonth = forecastDate.getMonth() + 1;
+                            const forecastYear = forecastDate.getFullYear();
+                            const forecastDateEl = document.createElement("p");
+                            forecastDateEl.setAttribute("class", "mt-3 mb-0 forecast-date");
+                            forecastDateEl.innerHTML = forecastMonth + "/" + forecastDay + "/" + forecastYear;
+                            forecastEls[i].append(forecastDateEl);
 
-    // Sets the queryURL to fetch from the API.
-
-    let queryURL = "https://api.openweathermap.org/data/2.5/weather" + city + "&lang=en" + "&units=imperial" + "&appid=" + myAPIKey;
-
-    // setting the units to imperial will give temperature in Fahrenheit & wind speed in miles/hour.
-    // response if there is an error for the queryURL
-
-    fetch(queryURL).then(errors).then(function (response) {
-        return response.json();
-    })
-        .then(function (response) {
-
-            // Save city to the local storage.
-
-            saveCity(city);
-            $('#search-error').text("");
-
-            // Creates an icon for the current weather
-
-            let currentWeatherIcon = "https://openweathermap.org/img/w/" + response.weather[0].icon + ".png";
-
-            // Timezone set moment.js
-
-            let currentTimeUTC = response.dt;
-            let currentTimeZoneOffset = response.timezone;
-            let currentTImeZoneOffsetHours = currentTimeZoneOffset / 60 / 60;
-            let currentMoment = moment.unix(currentTimeUTC).utc().utcOffset(currentTImeZoneOffsetHours);
-
-            // Render cities list.
-
-            renderCities();
-
-            // Get the 5 day forecast for the city searched by the user.
-
-            getFiveDayForecast(event);
-
-            $('#header-text').text(response.name);
-            // Creates the HTML for the results of the search by the user.
-            let currentWeather = `
-<h3>${response.name} ${currentMoment.format("MM/DD/YY")}<img src="${currentWeatherIcon}"/></h3>
-<ul class="list-group-flush">
-    <li class="list-group-item">Temperature: ${response.main.temp}&#8547;</li>
-    <li class="list-group-item">Humidity: ${response.main.humidity}%</li>
-    <li class="list-group-item">Wind Speed: ${response.wind.speed}mph</li>
-    <li id="uvIndex" class="list-group-item">UV Index:</li>
-</ul>`;
-
-            // Results are appended to the DOM.
-
-            $('#today-weather').html(currentWeather);
-            // Retrieves the latitude and longitude for the UV search from Open Weather Maps API
-
-            let latitude = response.coord.lat;
-            let longitude = response.coord.lon;
-            let uvQueryURL = "https://api.openweathermap.org/data/2.5/uvi?lat=" + latitude + "&lon=" + "longitude" + "&appid=" + myAPIKey;
-
-            // API colution for Cross-origin resources sharing (CORS) error: https://cors-anywhere.herokuapp.com/
-
-            uvQueryURL = "https://cors-anywhere.herokuapp.com/" + uvQueryURL;
-
-            // UV information is fetched and builds the color display for the UV index.
-
-            fetch(uvQueryURL).then(errors).then(function (response) {
-                let uvIndex = response.value;
-                $('#uvIndex').html(`UV Index: <span id="uvVal">${uvIndex}</span>`);
-                if (uvIndex >= 0 && uvIndex < 3) {
-                    $('#uvVal').attr("class", "uv-favorable");
-                } else if (uvIndex >= 3 && uvIndex < 8) {
-                    $('#uvVal').attr("class", "uv-moderate");
-                } else if (uvIndex >= 8) {
-                    $('#uvVal').attr("class", "uv-severe");
-                }
+                            // Icon for current weather
+                            const forecastWeatherEl = document.createElement("img");
+                            forecastWeatherEl.setAttribute("src", "https://openweathermap.org/img/wn/" + response.data.list[forecastIndex].weather[0].icon + "@2x.png");
+                            forecastWeatherEl.setAttribute("alt", response.data.list[forecastIndex].weather[0].description);
+                            forecastEls[i].append(forecastWeatherEl);
+                            const forecastTempEl = document.createElement("p");
+                            forecastTempEl.innerHTML = "Temp: " + k2f(response.data.list[forecastIndex].main.temp) + " &#176F";
+                            forecastEls[i].append(forecastTempEl);
+                            const forecastHumidityEl = document.createElement("p");
+                            forecastHumidityEl.innerHTML = "Humidity: " + response.data.list[forecastIndex].main.humidity + "%";
+                            forecastEls[i].append(forecastHumidityEl);
+                        }
+                    })
             });
-        });
-};
-
-// This function gets the five day forecast and displays it in the HTML.
-
-var getFiveDayForecast = function (event) {
-    let city = $('#search').val();
-
-    // Sets URL for API search using forecast search
-
-    let queryURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + city + "&lang=en" + "&appid=" + myAPIKey;
-
-    // Fetch
-
-    fetch(queryURL).then(errors)
-        .then(function (response) {
-            return response.json;
-        })
-        .then(function (response) {
-            // HTML
-            let fiveDayForecastHTML = `
-    <h2>5-Day Forecast:<h2>
-<div id="fiveDayForecastUl" class="d-inline-flex flex-wrap">`;
-            // 5 day forecast loop and build the HTML using UTC and Open Weather Map icon.
-            for (let i = 0; i < response.list.length; i++) {
-                let dayData = response.list[i];
-                let dayTImeUTC = dayData.dt;
-                let timeZoneOffset = response.city.timezone;
-                let timeZoneOffsetHours = timeZoneOffset / 60 / 60;
-                let thisMoment = moment.unix(dayTImeUTC).utc().utcOffset(timeZoneOffsetHours);
-                let iconURL = "https://openweathermap.org/img/w/" + dayData.weather[0].icon + ".png";
-                // Mid-day forecasts
-                if (thisMoment.format("HH:mm:ss") === "11:00:00" || thisMoment.format("HH:mm:ss") === "12:00:00" || thisMoment.format("HH:mm:ss") === "13:00:00") {
-                    fiveDayForecastHTML += `
-        <div class="weather-card card m-2 p0">
-        <ul class="list-group-flush">
-        <li class="list-group-item">${thisMoment.format("MM/DD/YY")}</li>
-        <li class="list-group-item weather-icon"><img src="${iconURL}"/></li>
-        <li class="list-group-item">Temp: ${dataData.main.temp}&#8457;</li>
-        <br>
-        <li class="list-group-item">Humidity: ${dayData.main.humidity}%</li>
-        </ul>
-        </div>`;
-                }
-
-            }
-            // HTML
-            fiveDayForecastHTML += `<div>`;
-            // 5 day forecast is appended to the DOM;
-            $('#five-day-forecast').html(fiveDayForecastHTML);
-        })
-}
-
-// This function saves the city to localStorage.
-
-var saveCity = function (newCity) {
-
-    $('#city-results').empty();
-    let cityExists = false;
-
-    // Checks whether or not city exists in local storage.
-
-    for (let i = 0; i < localStorage.length; i++) {
-        if (localStorage["cities" + i] === newCity) {
-            cityExists = true;
-            break;
-        }
-    }
-    // City will be saved to localStorage if it is new.
-    if (cityExists === false) {
-        localStorage.setItem('cities' + localStorage.length, newCity);
-    }
-}
-
-// The list of searched cities will render.
-
-var renderCities = function () {
-    $('#city-results').empty();
-    // Conditional statements if localStorage is empty.
-    if (localStorage.length === 0) {
-        if (lastCity) {
-            $('#search').attr("value", lastCity);
-        } else {
-            $('#search').attr("value");
-        }
-    } else {
-        // Key of last city written to localStorage.
-        let lastCityKey = "cities" + (localStorage.length - 1);
-        lastCity = localStorage.getItem("cities" + i);
-        let cityEl;
-        // Will be set to lastCity if currentCity is not set.
-        if (currentCity === "") {
-            currentCity = lastCity;
-        }
-        // Button class for currentCity is set to active.
-        if (city === currentCity) {
-            cityEl = `<button type="button" class="list-group-item list-group-item-action active">${city}</button></li>`;
-        } else {
-            cityEl = `<button type="button" class="list-group-item list-group-item-action">${city}</button></li>`;
-        }
-        // City is appended to the page.
-        $('#city-results').prepend(cityEl);
-        //.prepend() is a jQuery method that inserts content that is specified bythe cityEl parameter.
-
     }
 
+    // Get history from local storage if any
+    searchEl.addEventListener("click", function () {
+        const searchTerm = cityEl.value;
+        getWeather(searchTerm);
+        searchHistory.push(searchTerm);
+        localStorage.setItem("search", JSON.stringify(searchHistory));
+        renderSearchHistory();
+    })
+
+    // Clear History button
+    clearEl.addEventListener("click", function () {
+        localStorage.clear();
+        searchHistory = [];
+        renderSearchHistory();
+    })
+
+    function k2f(K) {
+        return Math.floor((K - 273.15) * 1.8 + 32);
+    }
+
+    function renderSearchHistory() {
+        historyEl.innerHTML = "";
+        for (let i = 0; i < searchHistory.length; i++) {
+            const historyItem = document.createElement("input");
+            historyItem.setAttribute("type", "text");
+            historyItem.setAttribute("readonly", true);
+            historyItem.setAttribute("class", "form-control d-block bg-white");
+            historyItem.setAttribute("value", searchHistory[i]);
+            historyItem.addEventListener("click", function () {
+                getWeather(historyItem.value);
+            })
+            historyEl.append(historyItem);
+        }
+    }
+
+    renderSearchHistory();
+    if (searchHistory.length > 0) {
+        getWeather(searchHistory[searchHistory.length - 1]);
+    }
+    
 }
 
-//Event listeners
-
-// Search button event listener
-
-$('#search-button').on("click", function (event) {
-    event.preventDefault();
-    currentCity = $('#search').val();
-    currentConditions(event);
-
-});
-
-// Old search cities buttons even listener.
-
-$('#city-results').on("click", function (event) {
-    $('#search').val(event.target.textContent);
-    currentCity = $('#search').val();
-    currentConditions(event);
-});
-
-// Clear history button event listener to clear old searched cities from the localStorage.
-
-$("#clear").on("click", function (event){
-    localStorage.clear();
-    renderCities();
-});
-
-// The searched cities are rendered.
-renderCities();
-
-// Get the current conditions and the 5 day forecast
-currentConditions();
+initPage();

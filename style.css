@@ -1,69 +1,56 @@
 /* Body styling*/
-body {
+/*body {
     font-family: 'Open Sans', sans-serif;
 }
 
-/*Header styling*/
-header {
-    background-size: cover;
-    position: relative;
-    background-color: #0066ff;
-    color: #ffffff;
-}
-
 h1 {
-    font-weight: 700;
-    font-size: 40px;
+    font-size: 50px;
+    font-weight: 400;
+    letter-spacing: 3px;
+    color: #f8f8ff;
 }
 
-input{
-    width: 80%;
+#weatherContent {
+    display: none;
 }
 
-label {
-    font-weight: 700;
-    font-size: 30px;
+.navbar {
+    height: 150px!important;
 }
 
-#search-button {
-    background-color: #993366;
-    color:#ffffff;
-    border-radius: 5px;
-    
+#cityDetail,
+#uvIndexColor,
+li {
+    color: #4D4F53!important;
 }
 
-#clear {
-    background-color: #008000;
-    color: #ffffff;
-    text-decoration: none;
-    font-size: 12px;
+#searchResults,
+#cityDetail,
+.card {
+    background-color: #5A6C73!important;
 }
 
-#today-weather {
-    padding-left: 15px;
+#searchResults {
+    height: 100vh;
 }
 
-.weather-card {
-    width: 32px;
-    background-color: #0275d8;
-    color: #ffffff;
-    text-align: center;
+#fiveDay .card {
+    border: 1px solid white!important;
 }
 
-.uv-favorable {
-    background-color:#008000;
-    border-radius: 5px;
-    color: #ffffff;
+#searchHistory li {
+    background-color: #97A6A4;
+    color: #f8f8ff!important;
 }
 
-.uv-moderate {
-    background-color: #ffa500;
-    border-radius: 5px;
-    color: #ffffff;
+p {
+    color: #D9B779;
 }
 
-.uv-severe {
-    background-color: #ff0000;
-    border-radius: 5px;
-    color: #ffffff;
+h1, h2, h3, h4, h5 {
+    font-family: 'Raleway', sans-serif;
 }
+
+h2, h3, h4, h5 {
+    color: #f8f8ff;
+} */
