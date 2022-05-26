@@ -78,6 +78,8 @@ let currentWeather = `
 </ul>`;
 
 // Results are appended to the DOM.
+$('#today-weather').html(currentWeather);
+// Retrieves the latitude and longitude for the UV search from Open Weather Maps API
 
 });
 };
