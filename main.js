@@ -19,5 +19,20 @@ THEN I am presented with current and future conditions for that city and that ci
  WHEN I click on a city in the search history
  THEN I am again presented with current and future conditions for that city*/
 
+// Global variables & Open Weather API Key
 
  var myAPIKey = "f6f9ed95a93815a052a050b551b895ef";
+ // personal API for Open Weather
+ var currentCity = "";
+ var lastCity = "";
+
+ // Error handler
+ var errors = function handleErrors (response) {
+     // successful request
+     if (!response.ok) {
+         throw Error(response.statusText);
+     }
+     return response;
+ }
+ /*TJ Van Toll. (2015, September 13). Handling Failed HTTP Responses With fetch(). TJ VanToll. 
+ Retrieved May 26, 2022, from https://www.tjvantoll.com/2015/09/13/fetch-and-errors/ */
