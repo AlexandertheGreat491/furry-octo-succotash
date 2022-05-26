@@ -8,15 +8,6 @@ Provide a short description explaining the what, why, and how of your project. U
 - What problem does it solve?
 - What did you learn?
 
-## Table of Contents (Optional)
-
-If your README is long, add a table of contents to make it easy for users to find what they need.
-
-- [Installation](#installation)
-- [Usage](#usage)
-- [Credits](#credits)
-- [License](#license)
-
 ## Installation
 
 What are the steps required to install your project? Provide a step-by-step description of how to get the development environment running.
@@ -45,6 +36,8 @@ Input group · Bootstrap. (2022). Bootstrap. Retrieved May 25, 2022, from https:
 Introduction · Bootstrap. (2022). Bootstrap. Retrieved May 25, 2022, from https://getbootstrap.com/docs/4.1/getting-started/introduction/
 
 Chima, S. (2020, April 2). Var, Let, and Const – What's the Difference? freeCodeCamp. Retrieved May 25, 2022, from https://www.freecodecamp.org/news/var-let-and-const-whats-the-difference
+
+One Call API: weather data for any geographical coordinate. (n.d.). OpenWeather. Retrieved May 26, 2022, from https://openweathermap.org/api/one-call-api#how
 
 TJ Van Toll. (2015, September 13). Handling Failed HTTP Responses With fetch(). TJ VanToll. Retrieved May 26, 2022, from https://www.tjvantoll.com/2015/09/13/fetch-and-errors/
 ## License
