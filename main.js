@@ -163,6 +163,9 @@ var getFiveDayForecast = function (event) {
                 }
 
             }
-
+            // HTML
+            fiveDayForecastHTML += `<div>`;
+            // 5 day forecast is appended to the DOM;
+$('#five-day-forecast').html(fiveDayForecastHTML);
         })
 }
