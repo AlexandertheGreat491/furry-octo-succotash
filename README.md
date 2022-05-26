@@ -41,8 +41,12 @@ If you followed tutorials, include links to those here as well.
 Tutorials used:
 
 Input group · Bootstrap. (2022). Bootstrap. Retrieved May 25, 2022, from https://getbootstrap.com/docs/4.0/components/input-group/
+
 Introduction · Bootstrap. (2022). Bootstrap. Retrieved May 25, 2022, from https://getbootstrap.com/docs/4.1/getting-started/introduction/
+
 Chima, S. (2020, April 2). Var, Let, and Const – What's the Difference? freeCodeCamp. Retrieved May 25, 2022, from https://www.freecodecamp.org/news/var-let-and-const-whats-the-difference
+
+TJ Van Toll. (2015, September 13). Handling Failed HTTP Responses With fetch(). TJ VanToll. Retrieved May 26, 2022, from https://www.tjvantoll.com/2015/09/13/fetch-and-errors/
 ## License
 
 The last section of a high-quality README file is the license. This lets other developers know what they can and cannot do with your project. If you need help choosing a license, refer to [https://choosealicense.com/](https://choosealicense.com/).
