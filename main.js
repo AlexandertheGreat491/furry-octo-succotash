@@ -27,7 +27,7 @@ var currentCity = "";
 var lastCity = "";
 
 // Error handler
-var errors = function handleErrors (response) {
+var errors = function handleErrors(response) {
     // successful request
     if (!response.ok) {
         throw Error(response.statusText);
@@ -42,33 +42,33 @@ var currentConditions = function (event) {
     let city = $('#search').val();
     currentCity = $('#search').val();
     // Sets the queryURL to fetch from the API.
-    let queryURL = "https://api.openweathermap.org/data/2.5/weather" + city +"&lang=en" + "&units=imperial" + "&appid=" + myAPIKey;
+    let queryURL = "https://api.openweathermap.org/data/2.5/weather" + city + "&lang=en" + "&units=imperial" + "&appid=" + myAPIKey;
     // setting the units to imperial will give temperature in Fahrenheit & wind speed in miles/hour.
     // response if there is an error for the queryURL
-fetch(queryURL).then(errors).then(function (response){
-    return response.json();
-})
-.then(function(response){
-    // Save city to the local storage.
-    saveCity(city);
-    $('#search-error').text("");
-    // Creates an icon for the current weather
-    let currentWeatherIcon = "https://openweathermap.org/img/w/" + response.weather[0].icon + ".png";
-    // Timezone set moment.js
-    let currentTimeUTC = response.dt;
-    let currentTimeZoneOffset = response.timezone;
-    let currentTImeZoneOffsetHours = currentTimeZoneOffset / 60 / 60;
-    let currentMoment = moment.unix(currentTimeUTC).utc().utcOffset(currentTImeZoneOffsetHours);
+    fetch(queryURL).then(errors).then(function (response) {
+        return response.json();
+    })
+        .then(function (response) {
+            // Save city to the local storage.
+            saveCity(city);
+            $('#search-error').text("");
+            // Creates an icon for the current weather
+            let currentWeatherIcon = "https://openweathermap.org/img/w/" + response.weather[0].icon + ".png";
+            // Timezone set moment.js
+            let currentTimeUTC = response.dt;
+            let currentTimeZoneOffset = response.timezone;
+            let currentTImeZoneOffsetHours = currentTimeZoneOffset / 60 / 60;
+            let currentMoment = moment.unix(currentTimeUTC).utc().utcOffset(currentTImeZoneOffsetHours);
 
-// Render cities list.
-renderCities();
+            // Render cities list.
+            renderCities();
 
-// Get the 5 day forecast for the city searched by the user.
-getFiveDayForecast(event);
+            // Get the 5 day forecast for the city searched by the user.
+            getFiveDayForecast(event);
 
-$('#header-text').text(response.name);
-// Creates the HTML for the results of the search by the user.
-let currentWeather = `
+            $('#header-text').text(response.name);
+            // Creates the HTML for the results of the search by the user.
+            let currentWeather = `
 <h3>${response.name} ${currentMoment.format("MM/DD/YY")}<img src="${currentWeatherIcon}"/></h3>
 <ul class="list-group-flush">
     <li class="list-group-item">Temperature: ${response.main.temp}&#8547;</li>
@@ -77,9 +77,26 @@ let currentWeather = `
     <li id="uvIndex" class="list-group-item">UV Index:</li>
 </ul>`;
 
-// Results are appended to the DOM.
-$('#today-weather').html(currentWeather);
-// Retrieves the latitude and longitude for the UV search from Open Weather Maps API
-
-});
+            // Results are appended to the DOM.
+            $('#today-weather').html(currentWeather);
+            // Retrieves the latitude and longitude for the UV search from Open Weather Maps API
+            let latitude = response.coord.lat;
+            let longitude = response.coord.lon;
+            let uvQueryURL = "https://api.openweathermap.org/data/2.5/uvi?lat=" + latitude + "&lon=" + "longitude" + "&appid=" + myAPIKey;
+            // API colution for Cross-origin resources sharing (CORS) error: https://cors-anywhere.herokuapp.com/
+            uvQueryURL = "https://cors-anywhere.herokuapp.com/" + uvQueryURL;
+            // UV information is fetched and builds the color display for the UV index.
+            fetch(uvQueryURL).then(errors).then(function (response) {
+                let uvIndex = response.value;
+                $('#uvIndex').html(`UV Index: <span id="uvVal">${uvIndex}</span>`);
+                if (uvIndex >= 0 && uvIndex < 3) {
+                    $('#uvVal').attr("class", "uv-favorable");
+                } else if (uvIndex >= 3 && uvIndex < 8) {
+                    $('#uvVal').attr("class", "uv-moderate");
+                } else if (uvIndex >= 8) {
+                    $('#uvVal').attr("class", "uv-severe");
+                }
+            });
+        });
 };
+
