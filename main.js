@@ -36,3 +36,13 @@ THEN I am presented with current and future conditions for that city and that ci
  }
  /*TJ Van Toll. (2015, September 13). Handling Failed HTTP Responses With fetch(). TJ VanToll. 
  Retrieved May 26, 2022, from https://www.tjvantoll.com/2015/09/13/fetch-and-errors/ */
+
+ var currentConditions = function (event) {
+     // User enters a city in the search input field.
+     let city = $('#search').val();
+     currentCity = $('#search').val();
+     // Sets the queryURL to fetch from the API.
+     let queryURL = "https://api.openweathermap.org/data/2.5/weather" + city +"&lang=en" + "&units=imperial" + "&appid=" + myAPIKey;
+     // setting the units to imperial will give temperature in Fahrenheit & wind speed in miles/hour.
+
+ }
