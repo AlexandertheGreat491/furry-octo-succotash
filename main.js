@@ -37,3 +37,9 @@ function initPage() {
 
 // Variable for personal Open Weather API
 const myAPIKey = "f6f9ed95a93815a052a050b551b895ef";
+
+function getWeather(cityName) {
+    // Executes a current weather request from Open Weather API.
+    let queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&lang=en" + "&units=imperial" + "&appid=" + myAPIKey;
+    
+}
