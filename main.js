@@ -38,32 +38,46 @@ var errors = function handleErrors(response) {
 Retrieved May 26, 2022, from https://www.tjvantoll.com/2015/09/13/fetch-and-errors/ */
 
 var currentConditions = function (event) {
+
     // User enters a city in the search input field.
+
     let city = $('#search').val();
     currentCity = $('#search').val();
+
     // Sets the queryURL to fetch from the API.
+
     let queryURL = "https://api.openweathermap.org/data/2.5/weather" + city + "&lang=en" + "&units=imperial" + "&appid=" + myAPIKey;
+
     // setting the units to imperial will give temperature in Fahrenheit & wind speed in miles/hour.
     // response if there is an error for the queryURL
+
     fetch(queryURL).then(errors).then(function (response) {
         return response.json();
     })
         .then(function (response) {
+
             // Save city to the local storage.
+
             saveCity(city);
             $('#search-error').text("");
+
             // Creates an icon for the current weather
+
             let currentWeatherIcon = "https://openweathermap.org/img/w/" + response.weather[0].icon + ".png";
+
             // Timezone set moment.js
+
             let currentTimeUTC = response.dt;
             let currentTimeZoneOffset = response.timezone;
             let currentTImeZoneOffsetHours = currentTimeZoneOffset / 60 / 60;
             let currentMoment = moment.unix(currentTimeUTC).utc().utcOffset(currentTImeZoneOffsetHours);
 
             // Render cities list.
+
             renderCities();
 
             // Get the 5 day forecast for the city searched by the user.
+
             getFiveDayForecast(event);
 
             $('#header-text').text(response.name);
@@ -78,14 +92,20 @@ var currentConditions = function (event) {
 </ul>`;
 
             // Results are appended to the DOM.
+
             $('#today-weather').html(currentWeather);
             // Retrieves the latitude and longitude for the UV search from Open Weather Maps API
+
             let latitude = response.coord.lat;
             let longitude = response.coord.lon;
             let uvQueryURL = "https://api.openweathermap.org/data/2.5/uvi?lat=" + latitude + "&lon=" + "longitude" + "&appid=" + myAPIKey;
+
             // API colution for Cross-origin resources sharing (CORS) error: https://cors-anywhere.herokuapp.com/
+
             uvQueryURL = "https://cors-anywhere.herokuapp.com/" + uvQueryURL;
+
             // UV information is fetched and builds the color display for the UV index.
+
             fetch(uvQueryURL).then(errors).then(function (response) {
                 let uvIndex = response.value;
                 $('#uvIndex').html(`UV Index: <span id="uvVal">${uvIndex}</span>`);
@@ -101,3 +121,29 @@ var currentConditions = function (event) {
 };
 
 // This function gets the five day forecast and displays it in the HTML.
+
+var getFiveDayForecast = function(event) {
+    let city = $('#search').val();
+
+    // Sets URL for API search using forecast search
+
+    let queryURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + city + "&lang=en" + "&appid=" + myAPIKey;
+
+    // Fetch
+
+    fetch(queryURL).then(errors)
+    .then(function(response){
+        return response.json;
+})
+.then(function(response){
+    // HTML
+    let fiveDayForecastHTML = `
+    <h2>5-Day Forecast:<h2>
+<div id="fiveDayForecastUl" class="d-inline-flex flex-wrap">`;
+// 5 day forecast loop and build the HTML using UTC and Open Weather Map icon.
+for (let i = 0; i < response.list.length; i++) {
+    
+}
+
+})
+}
