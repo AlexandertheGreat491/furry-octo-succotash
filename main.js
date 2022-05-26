@@ -19,27 +19,30 @@ THEN I am presented with current and future conditions for that city and that ci
  WHEN I click on a city in the search history
  THEN I am again presented with current and future conditions for that city*/
 
-function initPage() {
-    const cityEl = document.getElementById("search");
-    const searchEl = document.getElementById("search-button");
-    const clearEl = document.getElementById("clear");
-    const nameEl = document.getElementById("city-name");
-    const currentPicEl = document.getElementById("pic");
-    const currentTempEl = document.getElementById("temperature");
-    const currentHumidityEl = document.getElementById("humidity");
-    const currentWindEl = document.getElementById("wind-speed");
-    const currentUVEl = document.getElementById("UV-index");
-    const historyEl = document.getElementById("history");
-    var fivedayEl = document.getElementById("header");
-    var currentWeather = document.getElementById("todaysweather");
-    let searchHistory = JSON.parse(localStorage.getItem("search"))
+// Global variables & Open Weather API Key
+
+var myAPIKey = "f6f9ed95a93815a052a050b551b895ef";
+// personal API for Open Weather
+var currentCity = "";
+var lastCity = "";
+
+// Error handler
+var errors = function handleErrors (response) {
+    // successful request
+    if (!response.ok) {
+        throw Error(response.statusText);
+    }
+    return response;
 }
+/*TJ Van Toll. (2015, September 13). Handling Failed HTTP Responses With fetch(). TJ VanToll. 
+Retrieved May 26, 2022, from https://www.tjvantoll.com/2015/09/13/fetch-and-errors/ */
 
-// Variable for personal Open Weather API
-const myAPIKey = "f6f9ed95a93815a052a050b551b895ef";
+var currentConditions = function (event) {
+    // User enters a city in the search input field.
+    let city = $('#search').val();
+    currentCity = $('#search').val();
+    // Sets the queryURL to fetch from the API.
+    let queryURL = "https://api.openweathermap.org/data/2.5/weather" + city +"&lang=en" + "&units=imperial" + "&appid=" + myAPIKey;
+    // setting the units to imperial will give temperature in Fahrenheit & wind speed in miles/hour.
 
-function getWeather(cityName) {
-    // Executes a current weather request from Open Weather API.
-    let queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&lang=en" + "&units=imperial" + "&appid=" + myAPIKey;
-    
 }
