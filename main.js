@@ -18,4 +18,6 @@ THEN I am presented with current and future conditions for that city and that ci
  of weather conditions, the temperature, the wind speed, and the humidity
  WHEN I click on a city in the search history
  THEN I am again presented with current and future conditions for that city*/
- 
+
+
+ var myAPIKey = "f6f9ed95a93815a052a050b551b895ef";
