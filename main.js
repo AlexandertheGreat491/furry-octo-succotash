@@ -166,6 +166,12 @@ var getFiveDayForecast = function (event) {
             // HTML
             fiveDayForecastHTML += `<div>`;
             // 5 day forecast is appended to the DOM;
-$('#five-day-forecast').html(fiveDayForecastHTML);
+            $('#five-day-forecast').html(fiveDayForecastHTML);
         })
+}
+
+// This function saves the city to localStorage.
+
+var saveCity = function(newCity) {
+    $('#city-results').empty();
 }
