@@ -44,5 +44,18 @@ var currentConditions = function (event) {
     // Sets the queryURL to fetch from the API.
     let queryURL = "https://api.openweathermap.org/data/2.5/weather" + city +"&lang=en" + "&units=imperial" + "&appid=" + myAPIKey;
     // setting the units to imperial will give temperature in Fahrenheit & wind speed in miles/hour.
+    // response if there is an error for the queryURL
+fetch(queryURL).then(errors).then(function (response){
+    return response.json();
+})
+.then(function(response){
+    // Save city to the local storage.
+    saveCity(city);
+    $('#search-error').text("");
+    // Creates an icon for the current weather
+    let currentWeatherIcon = "https://openweathermap.org/img/w/" + response.weather[0].icon + ".png";
+    // Timezone set moment.js
+    moment.parseZone('2016-05-03T22:15:01+02:00').local().format();
 
+})
 }
