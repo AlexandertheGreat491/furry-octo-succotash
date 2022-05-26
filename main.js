@@ -193,7 +193,7 @@ var saveCity = function (newCity) {
 
 // The list of searched cities will render.
 
-var renderCities = function() {
+var renderCities = function () {
     $('#city-results').empty();
     // Conditional statements if localStorage is empty.
     if (localStorage.length === 0) {
@@ -204,13 +204,13 @@ var renderCities = function() {
         }
     } else {
         // Key of last city written to localStorage.
-        let lastCityKey = "cities" + (localStorage.length-1);
+        let lastCityKey = "cities" + (localStorage.length - 1);
         lastCity = localStorage.getItem("cities" + i);
         let cityEl;
         // Will be set to lastCity if currentCity is not set.
         if (currentCity === "") {
             currentCity = lastCity;
-        } 
+        }
         // Button class for currentCity is set to active.
         if (city === currentCity) {
             cityEl = `<button type="button" class="list-group-item list-group-item-action active">${city}</button></li>`;
@@ -225,6 +225,8 @@ var renderCities = function() {
 
 }
 
+//Event listeners
+
 // Search button event listener
 
 $('#search-button').on("click", function (event) {
@@ -236,6 +238,21 @@ $('#search-button').on("click", function (event) {
 
 // Old search cities buttons even listener.
 
-$('#city-results').on("click", function(event){
-
+$('#city-results').on("click", function (event) {
+    $('#search').val(event.target.textContent);
+    currentCity = $('#search').val();
+    currentConditions(event);
 });
+
+// Clear history button event listener to clear old searched cities from the localStorage.
+
+$("#clear").on("click", function (event){
+    localStorage.clear();
+    renderCities();
+});
+
+// The searched cities are rendered.
+renderCities();
+
+// Get the current conditions and the 5 day forecast
+currentConditions();
