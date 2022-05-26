@@ -40,6 +40,8 @@ Chima, S. (2020, April 2). Var, Let, and Const – What's the Difference? freeCo
 One Call API: weather data for any geographical coordinate. (n.d.). OpenWeather. Retrieved May 26, 2022, from https://openweathermap.org/api/one-call-api#how
 
 TJ Van Toll. (2015, September 13). Handling Failed HTTP Responses With fetch(). TJ VanToll. Retrieved May 26, 2022, from https://www.tjvantoll.com/2015/09/13/fetch-and-errors/
+
+Moment JS, UTC to Local time. (n.d.). JSFiddle. Retrieved May 26, 2022, from https://jsfiddle.net/FLhpq/4/light/
 ## License
 
 The last section of a high-quality README file is the license. This lets other developers know what they can and cannot do with your project. If you need help choosing a license, refer to [https://choosealicense.com/](https://choosealicense.com/).
