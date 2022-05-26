@@ -55,7 +55,19 @@ fetch(queryURL).then(errors).then(function (response){
     // Creates an icon for the current weather
     let currentWeatherIcon = "https://openweathermap.org/img/w/" + response.weather[0].icon + ".png";
     // Timezone set moment.js
-    moment.parseZone('2016-05-03T22:15:01+02:00').local().format();
+    $(function(){
+        setInterval(function(){
+          var divUtc = $('#divUTC');
+          var divLocal = $('#divLocal');  
+          //put UTC time into divUTC  
+          divUtc.text(moment.utc().format('YYYY-MM-DD HH:mm:ss'));      
+          
+          //get text from divUTC and conver to local timezone  
+          var localTime  = moment.utc(divUtc.text()).toDate();
+          localTime = moment(localTime).format('YYYY-MM-DD HH:mm:ss');
+          divLocal.text(localTime);        
+        },1000);
+      });
 
 })
 }
