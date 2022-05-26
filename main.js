@@ -100,3 +100,4 @@ var currentConditions = function (event) {
         });
 };
 
+// This function gets the five day forecast and displays it in the HTML.
