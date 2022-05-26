@@ -172,6 +172,17 @@ var getFiveDayForecast = function (event) {
 
 // This function saves the city to localStorage.
 
-var saveCity = function(newCity) {
+var saveCity = function (newCity) {
+
     $('#city-results').empty();
+    let cityExists = false;
+
+    // Checks whether or not city exists in local storage.
+
+    for (let i = 0; i < localStorage.length; i++) {
+        if (localStorage["cities" + i] === newCity) {
+            cityExists = true;
+            break;
+        }
+    }
 }
