@@ -55,19 +55,29 @@ fetch(queryURL).then(errors).then(function (response){
     // Creates an icon for the current weather
     let currentWeatherIcon = "https://openweathermap.org/img/w/" + response.weather[0].icon + ".png";
     // Timezone set moment.js
-    $(function(){
-        setInterval(function(){
-          var divUtc = $('#divUTC');
-          var divLocal = $('#divLocal');  
-          //put UTC time into divUTC  
-          divUtc.text(moment.utc().format('YYYY-MM-DD HH:mm:ss'));      
-          
-          //get text from divUTC and conver to local timezone  
-          var localTime  = moment.utc(divUtc.text()).toDate();
-          localTime = moment(localTime).format('YYYY-MM-DD HH:mm:ss');
-          divLocal.text(localTime);        
-        },1000);
-      });
+    let currentTimeUTC = response.dt;
+    let currentTimeZoneOffset = response.timezone;
+    let currentTImeZoneOffsetHours = currentTimeZoneOffset / 60 / 60;
+    let currentMoment = moment.unix(currentTimeUTC).utc().utcOffset(currentTImeZoneOffsetHours);
 
-})
-}
+// Render cities list.
+renderCities();
+
+// Get the 5 day forecast for the city searched by the user.
+getFiveDayForecast(event);
+
+$('#header-text').text(response.name);
+// Creates the HTML for the results of the search by the user.
+let currentWeather = `
+<h3>${response.name} ${currentMoment.format("MM/DD/YY")}<img src="${currentWeatherIcon}"/></h3>
+<ul class="list-group-flush">
+    <li class="list-group-item">Temperature: ${response.main.temp}&#8547;</li>
+    <li class="list-group-item">Humidity: ${response.main.humidity}%</li>
+    <li class="list-group-item">Wind Speed: ${response.wind.speed}mph</li>
+    <li id="uvIndex" class="list-group-item">UV Index:</li>
+</ul>`;
+
+// Results are appended to the DOM.
+
+});
+};
