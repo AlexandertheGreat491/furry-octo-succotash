@@ -43,20 +43,27 @@ label {
     padding-left: 15px;
 }
 
+.weather-card {
+    width: 32px;
+    background-color: #0275d8;
+    color: #ffffff;
+    text-align: center;
+}
+
 .uv-favorable {
-    background-color: green;
+    background-color:#008000;
     border-radius: 5px;
-    color: white;
+    color: #ffffff;
 }
 
 .uv-moderate {
-    background-color: orange;
+    background-color: #ffa500;
     border-radius: 5px;
-    color: white;
+    color: #ffffff;
 }
 
 .uv-severe {
-    background-color: red;
+    background-color: #ff0000;
     border-radius: 5px;
-    color: white;
+    color: #ffffff;
 }
