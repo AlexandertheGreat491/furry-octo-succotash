@@ -185,4 +185,39 @@ var saveCity = function (newCity) {
             break;
         }
     }
+    // City will be saved to localStorage if it is new.
+    if (cityExists === false) {
+        localStorage.setItem('cities' + localStorage.length, newCity);
+    }
+}
+
+// The list of searched cities will render.
+
+var renderCities = function() {
+    $('#city-results').empty();
+    // Conditional statements if localStorage is empty.
+    if (localStorage.length === 0) {
+        if (lastCity) {
+            $('#search').attr("value", lastCity);
+        } else {
+            $('#search').attr("value");
+        }
+    } else {
+        // Key of last city written to localStorage.
+        let lastCityKey = "cities" + (localStorage.length-1);
+        lastCity = localStorage.getItem("cities" + i);
+        let cityEl;
+        // Will be set to lastCity if currentCity is not set.
+        if (currentCity === "") {
+            currentCity = lastCity;
+        } 
+        // Button class for currentCity is set to active.
+        if (city === currentCity) {
+            cityEl = `<button type="button" class="list-group-item list-group-item-action active">${city}</button></li>`;
+        } else {
+            cityEl = `<button type="button" class="list-group-item list-group-item-action">${city}</button></li>`;
+        }
+        // City is appended to the page.
+        
+    }
 }
