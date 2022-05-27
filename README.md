@@ -23,15 +23,16 @@ To use this project, please clone the project repository to your local computer.
 
 This project can be used by accessing either the Deployed Application URL or the public repository URL.
 
-Deployed Application URL
+[Deployed Application URL](https://alexanderthegreat491.github.io/furry-octo-succotash/)
 
 public repository URL
+
 ## Credits
 
 Collaborators:
 
-Tutorials used:
 
+Tutorials used:
 
 
 Introduction · Bootstrap. (2022). Bootstrap. Retrieved May 25, 2022, from https://getbootstrap.com/docs/4.1/getting-started/introduction/
