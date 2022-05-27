@@ -36,7 +36,7 @@ function initial() {
     var todayweatherEl = document.getElementById("current-weather");
     let searchHistory = JSON.parse(localStorage.getItem("search")) || [];
 
-     // Open Weather API Key
+    // Open Weather API Key
 
     const myAPIKey = "f6f9ed95a93815a052a050b551b895ef";
 
@@ -60,7 +60,9 @@ function initial() {
                 // getMonth() returns the month and with the +1 returns any of the 12 months correctly.
                 const year = currentDate.getFullYear();
                 // getFullYear() method returns the year.
+                // Sets the format for how the date will display in HTML.
                 nameEl.innerHTML = response.data.name + " (" + month + "/" + day + "/" + year + ") ";
+                // Sets the icons to be used in displaying the weather forecast & the format in which they will display.
                 let weatherPic = response.data.weather[0].icon;
                 currentPicEl.setAttribute("src", "https://openweathermap.org/img/wn/" + weatherPic + "@2x.png");
                 currentPicEl.setAttribute("alt", response.data.weather[0].description);
@@ -68,7 +70,8 @@ function initial() {
                 currentHumidityEl.innerHTML = "Humidity: " + response.data.main.humidity + "%";
                 currentWindEl.innerHTML = "Wind Speed: " + response.data.wind.speed + " MPH";
 
-                // Get UV Index
+                // Gets the UV Index based on latitude and longitude.
+
                 let lat = response.data.coord.lat;
                 let lon = response.data.coord.lon;
                 let UVQueryURL = "https://api.openweathermap.org/data/2.5/uvi/forecast?lat=" + lat + "&lon=" + lon + "&appid=" + myAPIKey + "&cnt=1";
@@ -76,15 +79,18 @@ function initial() {
                     .then(function (response) {
                         let UVIndex = document.createElement("span");
 
-                        // When UV Index is good, shows green, when ok shows yellow, when bad shows red
+                        // When UV Index is good, shows green, when ok shows yellow, when bad shows red.
+                        // badge-success shows green
                         if (response.data[0].value < 4) {
-                            UVIndex.setAttribute("class", "badge badge-success");
+                            UVIndex.setAttribute("class", "badge bg-success");
                         }
+                        // badge-warning shows yellow
                         else if (response.data[0].value < 8) {
-                            UVIndex.setAttribute("class", "badge badge-warning");
+                            UVIndex.setAttribute("class", "badge bg-warning");
                         }
+                        // badge-danger shows red
                         else {
-                            UVIndex.setAttribute("class", "badge badge-danger");
+                            UVIndex.setAttribute("class", "badge bg-danger");
                         }
                         console.log(response.data[0].value)
                         UVIndex.innerHTML = response.data[0].value;
