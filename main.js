@@ -20,8 +20,10 @@ THEN I am presented with current and future conditions for that city and that ci
  THEN I am again presented with current and future conditions for that city*/
 
 // Global variables & Open Weather API Key
+
 var myAPIKey = "f6f9ed95a93815a052a050b551b895ef";
-function initPage() {
+
+function initial() {
     const cityEl = document.getElementById("enter-city");
     const searchEl = document.getElementById("search-button");
     const clearEl = document.getElementById("clear-history");
@@ -32,16 +34,17 @@ function initPage() {
     const currentWindEl = document.getElementById("wind-speed");
     const currentUVEl = document.getElementById("UV-index");
     const historyEl = document.getElementById("history");
-    var fivedayEl = document.getElementById("fiveday-header");
-    var todayweatherEl = document.getElementById("today-weather");
+    var fiveDayForecastEl = document.getElementById("forecast");
+    var todayweatherEl = document.getElementById("current-weather");
     let searchHistory = JSON.parse(localStorage.getItem("search")) || [];
 
     // Assigning a unique API to a variable
+
     const APIKey = "84b79da5e5d7c92085660485702f4ce8";
 
-    function getWeather(cityName) {
+    function getWeather(city) {
         // Execute a current weather get request from open weather api
-        let queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&appid=" + APIKey;
+        let queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + APIKey;
         axios.get(queryURL)
             .then(function (response) {
 
@@ -89,7 +92,7 @@ function initPage() {
                 let forecastQueryURL = "https://api.openweathermap.org/data/2.5/forecast?id=" + cityID + "&appid=" + APIKey;
                 axios.get(forecastQueryURL)
                     .then(function (response) {
-                        fivedayEl.classList.remove("d-none");
+                        fiveDayForecastEl.classList.remove("d-none");
                         
                         //  Parse response to display forecast for next 5 days
                         const forecastEls = document.querySelectorAll(".forecast");
@@ -163,4 +166,4 @@ function initPage() {
     
 }
 
-initPage();
+initial();
