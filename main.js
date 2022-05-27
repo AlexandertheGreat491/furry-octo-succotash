@@ -40,11 +40,11 @@ function initial() {
 
     // Assigning a unique API to a variable
 
-    const APIKey = "84b79da5e5d7c92085660485702f4ce8";
+    const myAPIKey = "f6f9ed95a93815a052a050b551b895ef";
 
     function getWeather(city) {
         // Execute a current weather get request from open weather api
-        let queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + APIKey;
+        let queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + myAPIKey;
         axios.get(queryURL)
             .then(function (response) {
 
@@ -66,7 +66,7 @@ function initial() {
                 // Get UV Index
                 let lat = response.data.coord.lat;
                 let lon = response.data.coord.lon;
-                let UVQueryURL = "https://api.openweathermap.org/data/2.5/uvi/forecast?lat=" + lat + "&lon=" + lon + "&appid=" + APIKey + "&cnt=1";
+                let UVQueryURL = "https://api.openweathermap.org/data/2.5/uvi/forecast?lat=" + lat + "&lon=" + lon + "&appid=" + myAPIKey + "&cnt=1";
                 axios.get(UVQueryURL)
                     .then(function (response) {
                         let UVIndex = document.createElement("span");
@@ -89,7 +89,7 @@ function initial() {
 
                 // Get 5 day forecast for this city
                 let cityID = response.data.id;
-                let forecastQueryURL = "https://api.openweathermap.org/data/2.5/forecast?id=" + cityID + "&appid=" + APIKey;
+                let forecastQueryURL = "https://api.openweathermap.org/data/2.5/forecast?id=" + cityID + "&appid=" + myAPIKey;
                 axios.get(forecastQueryURL)
                     .then(function (response) {
                         fiveDayForecastEl.classList.remove("d-none");
