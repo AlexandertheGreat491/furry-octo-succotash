@@ -80,15 +80,15 @@ function initial() {
                         let UVIndex = document.createElement("span");
 
                         // When UV Index is good, shows green, when ok shows yellow, when bad shows red.
-                        // bg-success shows green
+                        // bg-success shows green=favorable
                         if (response.data[0].value < 4) {
                             UVIndex.setAttribute("class", "badge bg-success");
                         }
-                        // bg-warning shows yellow
+                        // bg-warning shows yellow=moderate
                         else if (response.data[0].value < 8) {
                             UVIndex.setAttribute("class", "badge bg-warning");
                         }
-                        // bg-danger shows red
+                        // bg-danger shows red=severe
                         else {
                             UVIndex.setAttribute("class", "badge bg-danger");
                         }
