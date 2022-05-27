@@ -1,12 +1,19 @@
 # Weather Dashboard
+
 ## Description
 
-Provide a short description explaining the what, why, and how of your project. Use the following questions as a guide:
 
 - What was your motivation?
-- Why did you build this project? (Note: the answer is not "Because it was a homework assignment.")
+My motivation was to create an application that would allow a traveler to view the weather forecast for multiple cities so that they can plan a trip effectively.
+
+- Why did you build this project? 
+I built this project to make detailed weather forecasts more readily available to users.
+
 - What problem does it solve?
+The problem that it solves is the user needing to be able plan trips effectively based on knowing the weather forecast.
+
 - What did you learn?
+I learned how to use the Open Weather server-side API, alongside HTML, CSS, integrating Bootstrap for responsive styling, JavaScript, and jQuery to create an application that is accessible and useful to users.
 
 ## Installation
 
