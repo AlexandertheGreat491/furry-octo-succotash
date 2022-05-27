@@ -7,3 +7,12 @@ h1 {
     font-weight: 700;
     font-size: 40px;
 }
+
+h5 {
+    font-size: 30px;
+}
+
+header {
+    background-color: #8080ff;
+    color: #ffffff;
+}
