@@ -108,7 +108,8 @@ function initial() {
 
                         //  Parse response to display forecast for next 5 days.
                         // forecastEl selects all associations with .forecast.
-
+                        // getDate(), getMonth(), getFullYear() methods, return the month, day, and year based on local time.
+                        
                         const forecastEl = document.querySelectorAll(".forecast");
                         for (i = 0; i < forecastEl.length; i++) {
                             forecastEl[i].innerHTML = "";
@@ -122,7 +123,7 @@ function initial() {
                             forecastDateEl.innerHTML = forecastMonth + "/" + forecastDay + "/" + forecastYear;
                             forecastEl[i].append(forecastDateEl);
 
-                            // Icon for the current weather
+                            // Icon for the current weather and sets the attributes to used to display the 5 day forecast.
 
                             const forecastWeatherEl = document.createElement("img");
                             forecastWeatherEl.setAttribute("src", "https://openweathermap.org/img/wn/" + response.data.list[forecastIndex].weather[0].icon + "@2x.png");
