@@ -19,9 +19,7 @@ THEN I am presented with current and future conditions for that city and that ci
  WHEN I click on a city in the search history
  THEN I am again presented with current and future conditions for that city*/
 
-// Global variables & Open Weather API Key
-
-var myAPIKey = "f6f9ed95a93815a052a050b551b895ef";
+// Variables
 
 function initial() {
     const cityEl = document.getElementById("enter-city");
@@ -38,12 +36,14 @@ function initial() {
     var todayweatherEl = document.getElementById("current-weather");
     let searchHistory = JSON.parse(localStorage.getItem("search")) || [];
 
-    // Assigning a unique API to a variable
+     // Open Weather API Key
 
     const myAPIKey = "f6f9ed95a93815a052a050b551b895ef";
 
     function getWeather(city) {
-        // Execute a current weather get request from open weather api
+
+        // A current weather get request from Open Weather API
+
         let queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + myAPIKey;
         axios.get(queryURL)
             .then(function (response) {
@@ -51,10 +51,15 @@ function initial() {
                 todayweatherEl.classList.remove("d-none");
 
                 // Parse response to display current weather
+
                 const currentDate = new Date(response.data.dt * 1000);
+                // getDate(), getMonth(), and getFullYear all return values based on the local time.
                 const day = currentDate.getDate();
+                // getDate() method returns the day of the month for the specified date according to local time.
                 const month = currentDate.getMonth() + 1;
+                // getMonth() returns the month and with the +1 returns any of the 12 months correctly.
                 const year = currentDate.getFullYear();
+                // getFullYear() method returns the year.
                 nameEl.innerHTML = response.data.name + " (" + month + "/" + day + "/" + year + ") ";
                 let weatherPic = response.data.weather[0].icon;
                 currentPicEl.setAttribute("src", "https://openweathermap.org/img/wn/" + weatherPic + "@2x.png");
@@ -124,7 +129,11 @@ function initial() {
             });
     }
 
+    // Event listeners
+
     // Get history from local storage if any
+    // The weather for a specific city is searched and then stored in local storage.
+
     searchEl.addEventListener("click", function () {
         const searchTerm = cityEl.value;
         getWeather(searchTerm);
@@ -133,7 +142,9 @@ function initial() {
         renderSearchHistory();
     })
 
-    // Clear History button
+    // Clear History button event listener
+    // Search history is cleared from the page when this button is clicked.
+
     clearEl.addEventListener("click", function () {
         localStorage.clear();
         searchHistory = [];
@@ -143,6 +154,8 @@ function initial() {
     function k2f(K) {
         return Math.floor((K - 273.15) * 1.8 + 32);
     }
+
+    // A history of cities searched by the user renders on the page.
 
     function renderSearchHistory() {
         historyEl.innerHTML = "";
@@ -158,6 +171,8 @@ function initial() {
             historyEl.append(historyItem);
         }
     }
+
+    // Sets a condition for when to render the search history.
 
     renderSearchHistory();
     if (searchHistory.length > 0) {
