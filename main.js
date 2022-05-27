@@ -62,7 +62,7 @@ function initial() {
                 currentTempEl.innerHTML = "Temperature: " + k2f(response.data.main.temp) + " &#176F";
                 currentHumidityEl.innerHTML = "Humidity: " + response.data.main.humidity + "%";
                 currentWindEl.innerHTML = "Wind Speed: " + response.data.wind.speed + " MPH";
-                
+
                 // Get UV Index
                 let lat = response.data.coord.lat;
                 let lon = response.data.coord.lon;
@@ -70,9 +70,9 @@ function initial() {
                 axios.get(UVQueryURL)
                     .then(function (response) {
                         let UVIndex = document.createElement("span");
-                        
+
                         // When UV Index is good, shows green, when ok shows yellow, when bad shows red
-                        if (response.data[0].value < 4 ) {
+                        if (response.data[0].value < 4) {
                             UVIndex.setAttribute("class", "badge badge-success");
                         }
                         else if (response.data[0].value < 8) {
@@ -86,14 +86,14 @@ function initial() {
                         currentUVEl.innerHTML = "UV Index: ";
                         currentUVEl.append(UVIndex);
                     });
-                
+
                 // Get 5 day forecast for this city
                 let cityID = response.data.id;
                 let forecastQueryURL = "https://api.openweathermap.org/data/2.5/forecast?id=" + cityID + "&appid=" + APIKey;
                 axios.get(forecastQueryURL)
                     .then(function (response) {
                         fiveDayForecastEl.classList.remove("d-none");
-                        
+
                         //  Parse response to display forecast for next 5 days
                         const forecastEls = document.querySelectorAll(".forecast");
                         for (i = 0; i < forecastEls.length; i++) {
@@ -163,7 +163,7 @@ function initial() {
     if (searchHistory.length > 0) {
         getWeather(searchHistory[searchHistory.length - 1]);
     }
-    
+
 }
 
 initial();
