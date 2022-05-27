@@ -16,3 +16,11 @@ header {
     background-color: #8080ff;
     color: #ffffff;
 }
+
+#search-button {
+    background-color: #00cc00;
+}
+
+#clear {
+     background-color: #cc2900;
+}

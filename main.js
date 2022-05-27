@@ -26,7 +26,7 @@ var myAPIKey = "f6f9ed95a93815a052a050b551b895ef";
 function initial() {
     const cityEl = document.getElementById("enter-city");
     const searchEl = document.getElementById("search-button");
-    const clearEl = document.getElementById("clear-history");
+    const clearEl = document.getElementById("clear");
     const nameEl = document.getElementById("city-name");
     const currentPicEl = document.getElementById("current-pic");
     const currentTempEl = document.getElementById("temperature");
