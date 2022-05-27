@@ -80,15 +80,15 @@ function initial() {
                         let UVIndex = document.createElement("span");
 
                         // When UV Index is good, shows green, when ok shows yellow, when bad shows red.
-                        // badge-success shows green
+                        // bg-success shows green
                         if (response.data[0].value < 4) {
                             UVIndex.setAttribute("class", "badge bg-success");
                         }
-                        // badge-warning shows yellow
+                        // bg-warning shows yellow
                         else if (response.data[0].value < 8) {
                             UVIndex.setAttribute("class", "badge bg-warning");
                         }
-                        // badge-danger shows red
+                        // bg-danger shows red
                         else {
                             UVIndex.setAttribute("class", "badge bg-danger");
                         }
@@ -98,17 +98,20 @@ function initial() {
                         currentUVEl.append(UVIndex);
                     });
 
-                // Get 5 day forecast for this city
+                // Gets the 5 day forecast for this city
+
                 let cityID = response.data.id;
                 let forecastQueryURL = "https://api.openweathermap.org/data/2.5/forecast?id=" + cityID + "&appid=" + myAPIKey;
                 axios.get(forecastQueryURL)
                     .then(function (response) {
                         fiveDayForecastEl.classList.remove("d-none");
 
-                        //  Parse response to display forecast for next 5 days
-                        const forecastEls = document.querySelectorAll(".forecast");
-                        for (i = 0; i < forecastEls.length; i++) {
-                            forecastEls[i].innerHTML = "";
+                        //  Parse response to display forecast for next 5 days.
+                        // forecastEl selects all associations with .forecast.
+
+                        const forecastEl = document.querySelectorAll(".forecast");
+                        for (i = 0; i < forecastEl.length; i++) {
+                            forecastEl[i].innerHTML = "";
                             const forecastIndex = i * 8 + 4;
                             const forecastDate = new Date(response.data.list[forecastIndex].dt * 1000);
                             const forecastDay = forecastDate.getDate();
@@ -117,25 +120,26 @@ function initial() {
                             const forecastDateEl = document.createElement("p");
                             forecastDateEl.setAttribute("class", "mt-3 mb-0 forecast-date");
                             forecastDateEl.innerHTML = forecastMonth + "/" + forecastDay + "/" + forecastYear;
-                            forecastEls[i].append(forecastDateEl);
+                            forecastEl[i].append(forecastDateEl);
 
-                            // Icon for current weather
+                            // Icon for the current weather
+
                             const forecastWeatherEl = document.createElement("img");
                             forecastWeatherEl.setAttribute("src", "https://openweathermap.org/img/wn/" + response.data.list[forecastIndex].weather[0].icon + "@2x.png");
                             forecastWeatherEl.setAttribute("alt", response.data.list[forecastIndex].weather[0].description);
-                            forecastEls[i].append(forecastWeatherEl);
+                            forecastEl[i].append(forecastWeatherEl);
                             const forecastTempEl = document.createElement("p");
                             forecastTempEl.innerHTML = "Temp: " + k2f(response.data.list[forecastIndex].main.temp) + " &#176F";
-                            forecastEls[i].append(forecastTempEl);
+                            forecastEl[i].append(forecastTempEl);
                             const forecastHumidityEl = document.createElement("p");
                             forecastHumidityEl.innerHTML = "Humidity: " + response.data.list[forecastIndex].main.humidity + "%";
-                            forecastEls[i].append(forecastHumidityEl);
+                            forecastEl[i].append(forecastHumidityEl);
                         }
                     })
             });
     }
 
-    // Event listeners
+    // Event listeners for all buttons.
 
     // Get history from local storage if any
     // The weather for a specific city is searched and then stored in local storage.
