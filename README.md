@@ -27,6 +27,9 @@ This project can be used by accessing either the Deployed Application URL or the
 
 [public repository URL](https://github.com/AlexandertheGreat491/furry-octo-succotash)
 
+![deployed application screenshot](https://user-images.githubusercontent.com/64184203/170656944-d7df5a0e-6183-40b3-9148-676a9d399dd0.jpg)
+
+
 ## Credits
 
 Collaborators:
