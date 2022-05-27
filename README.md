@@ -25,12 +25,13 @@ This project can be used by accessing either the Deployed Application URL or the
 
 [Deployed Application URL](https://alexanderthegreat491.github.io/furry-octo-succotash/)
 
-public repository URL
+[public repository URL](https://github.com/AlexandertheGreat491/furry-octo-succotash)
 
 ## Credits
 
 Collaborators:
 
+[Alexander Van Dyke](https://github.com/AlexandertheGreat491/furry-octo-succotash)
 
 Tutorials used:
 
