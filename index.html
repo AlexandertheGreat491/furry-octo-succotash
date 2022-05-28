@@ -6,6 +6,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="description" content="">
+    <!--Stylesheets start-->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!--Bootstrap stylesheet-->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" crossorigin="anonymous">
@@ -13,6 +14,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
     <!--Customized stylesheet-->
     <link rel="stylesheet" href="style.css">
+    <!--Stylesheets end-->
+    <!--title-->
     <title>Weather Dashboard</title>
 </head>
 
@@ -25,17 +28,21 @@
         <div class="row">
             <div class="col-lg-3 bg-light">
                 <h5 class="mt-1">Search for a City:</h5>
+                <!--input for the user to search cities-->
                 <div class="input-group mb-3">
                     <input id="enter-city" type="text" class="form-control" placeholder="Enter a city" aria-label="Enter a city">
                     <div class="input-group-append">
+                        <!--Search button-->
                         <button class="btn btn-primary" type="button" id="search-button">
                             Search
                         </button>
                     </div>
                 </div>
+                <!--Clear history button-->
                 <button class="btn btn-primary mb-3" type="button" id="clear">Clear history</button>
                 <form id="history"></form>
             </div>
+            <!--Shows the overall forecast-->
             <div class="col-lg-9">
                 <div class="row mr-0">
                     <div class="col-lg-11 card m-3 d-none" id="current-weather">
@@ -49,6 +56,7 @@
                         </div>
                     </div>
                 </div>
+                <!--5 day forecast-->
                 <div class="row d-none" id="forecast">
                     <div class="col-12">
                         <h3>5-Day Forecast</h3>
@@ -75,7 +83,6 @@
         integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
         crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
     <script src="main.js"></script>
 </body>
 
