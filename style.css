@@ -3,24 +3,29 @@ body {
     font-family: 'Open Sans', sans-serif;
 }
 
+/*h1 element styling*/
 h1 {
     font-weight: 700;
     font-size: 40px;
 }
 
+/*h5 element styling*/
 h5 {
     font-size: 30px;
 }
 
+/*header styling*/
 header {
     background-color: #8080ff;
     color: #ffffff;
 }
 
+/*Search button styling*/
 #search-button {
     background-color: #00cc00;
 }
 
+/*Clear history button styling*/
 #clear {
      background-color: #cc2900;
 }
